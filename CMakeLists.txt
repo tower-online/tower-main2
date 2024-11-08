@@ -28,9 +28,9 @@ option(protobuf_BUILD_TESTS "Build tests" OFF)
 add_library(tower-lib STATIC
     tower/core/numbers.hpp
     tower/core/units.hpp
-    tower/net/connection_rudp.cpp
-    tower/net/details/rudp.hpp
+    tower/net/client.cpp
     tower/net/message.hpp
+    tower/net/server.cpp
 )
 
 target_compile_features(tower-lib PUBLIC cxx_std_23)
