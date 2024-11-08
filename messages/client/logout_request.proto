@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package tower.message;
+
+message LogoutRequest {
+  string username = 1;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "client/login_request.proto";
+import "client/logout_request.proto";
+
+package tower.message;
+
+message Base {
+  oneof message {
+    LoginRequest login_request = 2;
+    LogoutRequest logout_request = 3;
+  }
+}
