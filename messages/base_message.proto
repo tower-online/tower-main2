@@ -5,7 +5,7 @@ import "client/logout_request.proto";
 
 package tower.message;
 
-message Base {
+message BaseMessage {
   oneof message {
     LoginRequest login_request = 2;
     LogoutRequest logout_request = 3;

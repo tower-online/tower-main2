@@ -30,6 +30,7 @@ add_library(tower-lib STATIC
     tower/core/units.hpp
     tower/net/connection_rudp.cpp
     tower/net/details/rudp.hpp
+    tower/net/message.hpp
 )
 
 target_compile_features(tower-lib PUBLIC cxx_std_23)

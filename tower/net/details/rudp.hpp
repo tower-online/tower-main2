@@ -6,15 +6,15 @@
 #include <span>
 
 namespace tower::net::details {
-struct RudpHeader {
+struct RudpHdr {
     u8 control{};
     u8 mode{};
     u16 seq{};
 
     static constexpr size_t LEN{4};
 
-    static RudpHeader read(const std::span<const byte, LEN> src) {
-        RudpHeader hdr{};
+    static RudpHdr read(const std::span<const byte, LEN> src) {
+        RudpHdr hdr{};
         hdr.control = std::to_integer<u8>(src[0]);
         hdr.mode = std::to_integer<u8>(src[1]);
 
@@ -27,7 +27,7 @@ struct RudpHeader {
         return hdr;
     }
 
-    static void write(std::span<byte, LEN> dst, const RudpHeader& hdr) {
+    static void write(std::span<byte, LEN> dst, const RudpHdr& hdr) {
         dst[0] = byte{hdr.control};
         dst[1] = byte{hdr.mode};
 
@@ -51,10 +51,19 @@ struct RudpHeader {
     void set_eak() { control |= EAK; }
     void set_rst() { control |= RST; }
 
+    [[nodiscard]] bool reliable() const { return mode & RELIABLE; }
+    [[nodiscard]] bool ordered() const { return mode & ORDERED; }
+
+    void set_reliable() { mode |= RELIABLE; }
+    void set_ordered() { mode |= ORDERED; }
+
 private:
     static constexpr u8 SYN {0b0000'0001};
     static constexpr u8 ACK {0b0000'0010};
     static constexpr u8 EAK {0b0000'0100};
     static constexpr u8 RST {0b0000'1000};
+
+    static constexpr u8 RELIABLE {0b1000'0000};
+    static constexpr u8 ORDERED {0b0000'1000};
 };
 }
